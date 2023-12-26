@@ -17,7 +17,9 @@
     <input type="text" id="textoCodigo">
     <button onclick="generarCodigo()">Generar Código de Barras</button>
 
-    <div id="barcode"></div>
+    <svg id="barcode"></svg>
+
+    <!--<div id="barcode"></div>-->
 
     <script>
         function generarCodigo() {
@@ -30,10 +32,7 @@
                 document.getElementById('barcode').innerHTML = '';
 
                 // Generar el código de barras con JsBarcode
-                JsBarcode("#barcode", textoCodigo, {
-                    format: "CODE128", // Puedes elegir el formato que desees
-                    displayValue: true
-                });
+                JsBarcode("#code128", textoCodigo);
             }
         }
     </script>
