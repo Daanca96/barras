@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generar Código de Barras</title>
+    <script src="JsBarcode.all.min.js"></script>
+    <style>
+        #barcode {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<svg id="barcode"></svg>
+
+    <script>
+        JsBarcode("#code128", "prueba01");
+    </script>
+
+</body>
+</html>
