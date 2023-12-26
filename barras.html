@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar Código de Barras</title>
+    <script src="https://cdn.jsdelivr.net/jsbarcode/3.11.0/JsBarcode.all.min.js"></script>
+    <style>
+        #barcode {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <label for="textoCodigo">Texto para el Código de Barras:</label>
+    <input type="text" id="textoCodigo">
+    <button onclick="generarCodigo()">Generar Código de Barras</button>
+
+    <div id="barcode"></div>
+
+    <script>
+        function generarCodigo() {
+            // Obtener el valor del campo de texto
+            const textoCodigo = document.getElementById('textoCodigo').value;
+
+            // Verificar que haya un texto para generar el código de barras
+            if (textoCodigo.trim() !== '') {
+                // Limpiar el elemento contenedor del código de barras
+                document.getElementById('barcode').innerHTML = '';
+
+                // Generar el código de barras con JsBarcode
+                JsBarcode("#barcode", textoCodigo, {
+                    format: "CODE128", // Puedes elegir el formato que desees
+                    displayValue: true
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>
