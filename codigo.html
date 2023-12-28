@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario con SweetAlert2 y Código de Barras</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="JsBarcode.all.min.js"></script>
+</head>
+<body>
+
+    <button onclick="mostrarFormulario()">CREE CODIGO DE BARRAS</button>
+
+    <script>
+        function mostrarFormulario() {
+            // Crear un formulario HTML con SweetAlert2
+            Swal.fire({
+                title: '',
+                imageUrl: "codigo.gif",
+                html:
+                    '<input id="campoReferencia" class="swal2-input" placeholder="Ingresa Referencia" maxlength="5" required>' +
+                    '<input id="campoColeccion" class="swal2-input" placeholder="Ingresa Coleccion" maxlength="2" required>' +
+                    '<input id="campoTalla" class="swal2-input" placeholder="Ingresa Talla" maxlength="2" required>',
+                focusConfirm: false,
+                preConfirm: () => {
+                    // Obtener valores de los campos
+                    const campoReferencia = Swal.getPopup().querySelector('#campoReferencia').value;
+                    const campoColeccion = Swal.getPopup().querySelector('#campoColeccion').value;
+                    const campoTalla = Swal.getPopup().querySelector('#campoTalla').value;
+
+                    // Validar que los campos no estén vacíos
+                    if (!campoReferencia || !campoColeccion || !campoTalla) {
+                        Swal.showValidationMessage('Todos los campos son obligatorios');
+                    }else{
+                    // Concatenar los valores
+                    const valoresConcatenados = 'R=' + campoReferencia + '|C=' + campoColeccion + '|T=' + campoTalla;
+                
+                    // Crear un elemento Canvas
+                    const canvas = document.createElement('canvas');
+                    JsBarcode(canvas, valoresConcatenados, {
+                        format: 'code128',
+                        displayValue: true
+                    });
+
+                    // Obtener la URL de la imagen base64
+                    const imageUrl = canvas.toDataURL();
+
+
+                    // Mostrar los valores concatenados y el código de barras después de cerrar el cuadro de diálogo principal
+                    Swal.fire({
+                        title: 'Código de Barras',
+                        imageUrl: "codigo.gif",
+                         html: `<img src="${imageUrl}" alt="Código de Barras">`
+                    });
+
+                    }
+                }
+
+            });
+        }
+    </script>
+
+</body>
+</html>
